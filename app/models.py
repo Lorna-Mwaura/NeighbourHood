@@ -44,6 +44,7 @@ class Business(models.Model):
 
 class User_Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
+    image = CloudinaryField('image', null=True)
     id_number = models.IntegerField(blank=True,null=True)
     user_name = models.CharField(max_length=50)
     email = models.EmailField()
@@ -51,6 +52,8 @@ class User_Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.username} profile'
+    
+    
     
 
 
