@@ -36,10 +36,22 @@ class Business(models.Model):
     business_number = models.IntegerField(blank=True,null=True)
 
     @classmethod
-    def buisness_search(cls,search_term):
+    def business_search(cls,search_term):
         return cls.objects.filter(buisness_name__icontains=search_term)
 
     def __str__(self):
         return f'Buisness {self.buisness_name} Owned by {self.user.username}'
+
+class User_Profile(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    id_number = models.IntegerField(blank=True,null=True)
+    user_name = models.CharField(max_length=50)
+    email = models.EmailField()
+    neighbourhood = models.ForeignKey(Neighbourhood,on_delete=models.CASCADE,blank=True,null=True)
+
+    def __str__(self):
+        return f'{self.user.username} profile'
+    
+
 
 
