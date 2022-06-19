@@ -36,6 +36,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'crispy_forms',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -134,3 +135,6 @@ cloudinary.config(
     api_key="188534173523435",
     api_secret="YQghV-b5GPMKpOAwMTZvxb4js5M"
 )
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+LOGIN_REDIRECT_URL = 'welcome'
+LOGIN_URL = 'login'
