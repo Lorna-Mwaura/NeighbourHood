@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section>
+    <div class="row">
+        <h1 class="text-center"> Business</h1>
+      {% if business %}
+      {% for busines in business  %}
+      <div class="col-3 mx-4">
+    
+        <div class="mt-3 text-black">
+          <div class="card" style="width: 18rem;">
+            
+            <img class="card-img-top" src="{{busines.image.url}}" alt="Card image cap">
+            <div class="card-body">
+              <h4 class="card-text">{{busines.business_name}}</h4>
+              <p>{{busines.business_email}}</p>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+          {% endfor %}
+          {% endif %}
+    
+    </div>
+  
+  </section>
+{% endblock %}
