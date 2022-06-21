@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Neighbourhood(models.Model):
     name = models.CharField(max_length=100)
+    image = CloudinaryField('image', null=True)
     location = models.CharField(max_length=250)
     admin = models.ForeignKey(User,on_delete=models.CASCADE)
     def create_neighbourhood(self):
@@ -26,21 +27,19 @@ class Neighbourhood(models.Model):
         return self.name
 
 class Business(models.Model):
-    '''
-    Model for business class in neighbourhood
-    '''
     business_name = models.CharField(max_length=40)
+    image=CloudinaryField('image', null=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    neighborhood = models.ForeignKey(Neighbourhood,on_delete=models.CASCADE)
+    neighbourhood = models.ForeignKey(Neighbourhood,on_delete=models.CASCADE)
     business_email = models.EmailField()
     business_number = models.IntegerField(blank=True,null=True)
 
     @classmethod
     def business_search(cls,search_term):
-        return cls.objects.filter(buisness_name__icontains=search_term)
+        return cls.objects.filter(business_name__icontains=search_term)
 
     def __str__(self):
-        return f'Buisness {self.buisness_name} Owned by {self.user.username}'
+        return f'Buisness {self.business_name} Owned by {self.user.username}'
 
 class User_Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
@@ -53,7 +52,23 @@ class User_Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} profile'
     
+class News(models.Model):
+    image=CloudinaryField('image',null=True)
+    category = models.CharField(max_length=30)
+    title = models.CharField(max_length=150)
+    description = models.TextField()
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    neighbourhood = models.ForeignKey(Neighbourhood,on_delete=models.CASCADE)
     
+    def save_stories(self):
+        self.save()
+        
+    def delete_stories(self):
+        self.delete()
+    
+    def __str__(self):
+        return f'{self.category} story from {self.neighbourhood.name} Neighborhood'
+       
     
 
 
