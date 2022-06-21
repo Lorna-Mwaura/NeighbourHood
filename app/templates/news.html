@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section>
+    <div class="row">
+        <h1 class="text-center"> NEWS</h1>
+      {% if news %}
+      {% for story in news  %}
+      <div class="col-3 mx-4">
+        <div class="mt-3 text-black">
+          <div class="card" style="width: 18rem;">
+            
+            <img class="card-img-top" src="{{story.image.url}}" alt="Card image cap">
+
+            <h4>{{story.title}}</h4>
+            <div class="card-body">
+              <p class="card-text">{{story.category}}</p>
+              <p class="card-text">{{story.description}}</p>
+              <h5 class="card-text"> Submitted by : {{story.user}}</h5>
+              <p class="card-text"><strong>Neighbourhood :</strong> {{story.neighbourhood}}</p>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+          {% endfor %}
+          {% endif %}
+    
+          
+    </div>
+  
+  </section>
+{% endblock %}
