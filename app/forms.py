@@ -25,3 +25,10 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = User_Profile
         fields = ['image']
+class uploadform(forms.ModelForm):
+
+    class Meta:
+        model = News
+        fields = ['category', 'title', 'description','neighbourhood','image']
+    
+    
