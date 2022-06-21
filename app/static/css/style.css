@@ -1,0 +1,10 @@
+#cover {
+	background: url(../images/apartments.jpg);
+    height: 80vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 1px;
+    margin: 10px;
+    
+   
+}
