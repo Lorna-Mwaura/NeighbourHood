@@ -1,13 +1,22 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm, uploadform
 from django.contrib.auth.decorators import login_required
-from .models import User_Profile
+from .models import *
 
 
 # Create your views here.
 def welcome(request):
-    return render(request, "index.html")
+    neighbourhood = Neighbourhood.objects.all()
+    return render(request, "index.html", {"neighbourhood":neighbourhood})
+
+def business(request):
+    business = Business.objects.all()
+    return render(request, "business.html",{"business":business})
+
+def news(request):
+    news = News.objects.all()
+    return render(request, "news.html", {"news":news})
 
 def register(request):
     if request.method == 'POST':
@@ -50,3 +59,24 @@ def profile(request):
     }
 
     return render(request, 'users/profile.html', context)
+
+@login_required
+def upload(request):
+    '''
+    function to upload news for display
+    '''
+    current_user = request.user
+    if request.method == "POST":
+        form = uploadform(request.POST,request.FILES)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.user = current_user
+            project.save()
+            return redirect('welcome')
+    else:
+        form = uploadform()
+    context = {
+        "form":form
+    }
+
+    return render(request,"News/upload.html",context)
